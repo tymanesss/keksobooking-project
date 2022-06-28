@@ -115,5 +115,4 @@ const createAd = () => {
 };
 
 const similarAds = Array.from({length: 10}, createAd);
-//for ESlint
-console.log(similarAds);
+console.log(similarAds); // eslint-disable-line no-console
