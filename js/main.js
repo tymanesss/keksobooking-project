@@ -80,9 +80,9 @@ function getRandomArray(elements) {
   return Array;
 }
 
-const getRandomArrayElement = (elements) => {
-  return elements[getRandomInt(0, elements.length - 1)];
-};
+const getRandomArrayElement = (elements) => (
+  elements[getRandomInt(0, elements.length - 1)]
+);
 
 const createAd = () => {
   const getLocationLat = getRandomFloat(35.65000, 35.70000);
@@ -115,3 +115,5 @@ const createAd = () => {
 };
 
 const similarAds = Array.from({length: 10}, createAd);
+//for ESlint
+console.log(similarAds);
