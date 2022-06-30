@@ -1,16 +1,18 @@
-// Случайное целое число
-function getRandomInt(from, to) {
+const getRandomInt = (from, to) => {
   const min = Math.ceil(Math.min(from, to));
   const max = Math.floor(Math.max(from, to));
-  return Math.floor(Math.random()*(max - min + 1) + min);
+    return Math.floor(Math.random() * (max - min) + min);
 }
-const numberInt = getRandomInt(0, 10);
-// Случайное число с плавающей точкой
-function getRandomFloat() {
-  const randNumber = Math.random() * numberInt;
-  return Math.floor(randNumber * 100) / 100;
+
+const getRandomFloat = (min, max) => {
+  return getRandomInt(min * 1000, max * 1000) / 1000
 }
-getRandomFloat();
+
+const LAT_MIN = 35.65000;
+const LAT_MAX = 35.70000;
+const LNG_MIN = 139.70000;
+const LNG_MAX = 139.80000;
+const ADS_COUNT = 10;
 
 const TITLES = [
   'Castle house',
@@ -31,13 +33,13 @@ const TYPES = [
   'hotel'
 ];
 
-const CHECKIN = [
+const CHECKIN_TIMES = [
   '12:00',
   '13:00',
   '14:00',
 ];
 
-const CHECKOUT = [
+const CHECKOUT_TIMES = [
   '12:00',
   '13:00',
   '14:00',
@@ -70,49 +72,47 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
 ];
 
-const getRandomPictureLink = () => {
-  const result = getRandomInt(1, 10);
-  return result < 10 ? `0${result}` : result;
-};
-
-function getRandomArray(elements) {
-  const Array = elements.slice(getRandomInt(0, elements.length - 1));
-  return Array;
+const getRandomArray = (elements) => {
+  const items = elements.slice(getRandomInt(0, elements.length - 1));
+    return items;
 }
 
-const getRandomArrayElement = (elements) => (
+const getRandomArrayElement = (elements) => {
   elements[getRandomInt(0, elements.length - 1)]
-);
-
-const createAd = () => {
-  const getLocationLat = getRandomFloat(35.65000, 35.70000);
-  const getLocationLng = getRandomFloat(139.70000, 139.80000);
-  return {
-    author: {
-      avatar: `img/avatars/user${getRandomPictureLink()}.png`
-    },
-    offer: {
-      title: getRandomArrayElement(TITLES),
-      address: {
-        lat: getLocationLat,
-        lng: getLocationLng,
-      },
-      price: getRandomInt(100, 50000),
-      type: getRandomArrayElement(TYPES),
-      rooms: getRandomInt(1, 5),
-      guests: getRandomInt(1, 10),
-      checkin: getRandomArrayElement(CHECKIN),
-      checkout: getRandomArrayElement(CHECKOUT),
-      features: getRandomArray(FEATURES),
-      description: getRandomArrayElement(DESCRIPTIONS),
-      photos: getRandomArrayElement(PHOTOS),
-    },
-    location: {
-      lat: getLocationLat,
-      lng: getLocationLng,
-    }
-  };
 };
 
-const similarAds = Array.from({length: 10}, createAd);
-console.log(similarAds); // eslint-disable-line no-console
+const createAd = (id) => {
+  const lat = getRandomFloat(LAT_MIN, LAT_MAX);
+  const lng = getRandomFloat(LNG_MIN, LNG_MAX);
+    return {
+      author: {
+        avatar: `img/avatars/user${String(id).padStart(2, '0')}.png`
+	  },
+	  offer: {
+		title: getRandomArrayElement(TITLES),
+		address: `${lat}, ${lng}`,
+		price: getRandomInt(100, 50000),
+		type: getRandomArrayElement(TYPES),
+		rooms: getRandomInt(1, 5),
+		guests: getRandomInt(1, 10),
+		checkin: getRandomArrayElement(CHECKIN_TIMES),
+		checkout: getRandomArrayElement(CHECKOUT_TIMES),
+		features: getRandomArray(FEATURES),
+		description: getRandomArrayElement(DESCRIPTIONS),
+		photos: getRandomArrayElement(PHOTOS),
+	  },
+	  location: {
+		lat,
+		lng,
+	  }
+	};
+  };
+
+  const similarAdsArray = (id) => {
+    const similarAds = [];
+	for (let i = 1; i <= id; i++) {
+	  similarAds.push(createAd(i));
+	}
+	return similarAds;
+  };
+  similarAdsArray(ADS_COUNT);
