@@ -5,7 +5,7 @@ const getRandomInt = (from, to) => {
 };
 
 const getRandomFloat = (min, max) =>
-   getRandomInt(min * 1000, max * 1000) / 1000;
+  getRandomInt(min * 1000, max * 1000) / 1000;
 
 const LAT_MIN = 35.65000;
 const LAT_MAX = 35.70000;
@@ -86,8 +86,8 @@ const createAd = (id) => {
     author: {
       avatar: `img/avatars/user${String(id).padStart(2, '0')}.png`
     },
-      offer: {
-    title: getRandomArrayElement(TITLES),
+    offer: {
+      title: getRandomArrayElement(TITLES),
       address: `${lat}, ${lng}`,
       price: getRandomInt(100, 50000),
       type: getRandomArrayElement(TYPES),
@@ -98,7 +98,7 @@ const createAd = (id) => {
       features: getRandomArray(FEATURES),
       description: getRandomArrayElement(DESCRIPTIONS),
       photos: getRandomArrayElement(PHOTOS),
-      },
+    },
     location: {
       lat,
       lng,
@@ -109,7 +109,7 @@ const createAd = (id) => {
 const similarAdsArray = (id) => {
   const similarAds = [];
   for (let i = 1; i <= id; i++) {
-  similarAds.push(createAd(i));
+    similarAds.push(createAd(i));
   }
   return similarAds;
 };
