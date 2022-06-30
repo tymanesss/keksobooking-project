@@ -4,9 +4,8 @@ const getRandomInt = (from, to) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
-const getRandomFloat = (min, max) => {
-  return getRandomInt(min * 1000, max * 1000) / 1000
-};
+const getRandomFloat = (min, max) =>
+   getRandomInt(min * 1000, max * 1000) / 1000;
 
 const LAT_MIN = 35.65000;
 const LAT_MAX = 35.70000;
@@ -88,7 +87,7 @@ const createAd = (id) => {
       avatar: `img/avatars/user${String(id).padStart(2, '0')}.png`
     },
       offer: {
-      title: getRandomArrayElement(TITLES),
+    title: getRandomArrayElement(TITLES),
       address: `${lat}, ${lng}`,
       price: getRandomInt(100, 50000),
       type: getRandomArrayElement(TYPES),
