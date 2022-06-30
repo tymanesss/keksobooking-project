@@ -1,12 +1,12 @@
 const getRandomInt = (from, to) => {
   const min = Math.ceil(Math.min(from, to));
   const max = Math.floor(Math.max(from, to));
-    return Math.floor(Math.random() * (max - min) + min);
-}
+  return Math.floor(Math.random() * (max - min) + min);
+};
 
 const getRandomFloat = (min, max) => {
   return getRandomInt(min * 1000, max * 1000) / 1000
-}
+};
 
 const LAT_MIN = 35.65000;
 const LAT_MAX = 35.70000;
@@ -74,45 +74,44 @@ const PHOTOS = [
 
 const getRandomArray = (elements) => {
   const items = elements.slice(getRandomInt(0, elements.length - 1));
-    return items;
-}
-
-const getRandomArrayElement = (elements) => {
-  elements[getRandomInt(0, elements.length - 1)]
+  return items;
 };
+
+const getRandomArrayElement = (elements) =>
+  elements[getRandomInt(0, elements.length - 1)];
 
 const createAd = (id) => {
   const lat = getRandomFloat(LAT_MIN, LAT_MAX);
   const lng = getRandomFloat(LNG_MIN, LNG_MAX);
-    return {
-      author: {
-        avatar: `img/avatars/user${String(id).padStart(2, '0')}.png`
-	  },
-	  offer: {
-		title: getRandomArrayElement(TITLES),
-		address: `${lat}, ${lng}`,
-		price: getRandomInt(100, 50000),
-		type: getRandomArrayElement(TYPES),
-		rooms: getRandomInt(1, 5),
-		guests: getRandomInt(1, 10),
-		checkin: getRandomArrayElement(CHECKIN_TIMES),
-		checkout: getRandomArrayElement(CHECKOUT_TIMES),
-		features: getRandomArray(FEATURES),
-		description: getRandomArrayElement(DESCRIPTIONS),
-		photos: getRandomArrayElement(PHOTOS),
-	  },
-	  location: {
-		lat,
-		lng,
-	  }
-	};
+  return {
+    author: {
+      avatar: `img/avatars/user${String(id).padStart(2, '0')}.png`
+    },
+      offer: {
+      title: getRandomArrayElement(TITLES),
+      address: `${lat}, ${lng}`,
+      price: getRandomInt(100, 50000),
+      type: getRandomArrayElement(TYPES),
+      rooms: getRandomInt(1, 5),
+      guests: getRandomInt(1, 10),
+      checkin: getRandomArrayElement(CHECKIN_TIMES),
+      checkout: getRandomArrayElement(CHECKOUT_TIMES),
+      features: getRandomArray(FEATURES),
+      description: getRandomArrayElement(DESCRIPTIONS),
+      photos: getRandomArrayElement(PHOTOS),
+      },
+    location: {
+      lat,
+      lng,
+    }
   };
+};
 
-  const similarAdsArray = (id) => {
-    const similarAds = [];
-	for (let i = 1; i <= id; i++) {
-	  similarAds.push(createAd(i));
-	}
-	return similarAds;
-  };
-  similarAdsArray(ADS_COUNT);
+const similarAdsArray = (id) => {
+  const similarAds = [];
+  for (let i = 1; i <= id; i++) {
+  similarAds.push(createAd(i));
+  }
+  return similarAds;
+};
+similarAdsArray(ADS_COUNT);
