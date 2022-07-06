@@ -28,8 +28,8 @@ const renderAd = ({ad, author}) => {
   }
 
   if (ad.offer.description !== undefined) {
-    cardElement.querySelector('.popup__description').textContent = ad.offer.description
-  };
+    cardElement.querySelector('.popup__description').textContent = ad.offer.description;
+  }
 
   if (ad.offer.photos !== undefined) {
     const photos = cardElement.querySelector('.popup__photos');
@@ -41,7 +41,7 @@ const renderAd = ({ad, author}) => {
       newPhoto.src = ad.offer.photos[i];
       photos.appendChild(newPhoto);
     }
-  };
+  }
   return cardElement;
 };
 
