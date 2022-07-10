@@ -21,6 +21,14 @@ const TYPES = [
   'hotel'
 ];
 
+const HOUSING_TYPES = {
+  flat: 'Квартира',
+  bungalow: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
+  hotel: 'Отель',
+};
+
 const CHECKIN_TIMES = [
   '12:00',
   '13:00',
@@ -65,12 +73,12 @@ const LAT_MAX = 35.70000;
 const LNG_MIN = 139.70000;
 const LNG_MAX = 139.80000;
 
-const createAd = (id) => {
+const createAd = (i) => {
   const lat = getRandomFloat(LAT_MIN, LAT_MAX);
   const lng = getRandomFloat(LNG_MIN, LNG_MAX);
   return {
     author: {
-      avatar: `img/avatars/user${String(id).padStart(2, '0')}.png`
+      avatar: `img/avatars/user${String(i).padStart(2, '0')}.png`
     },
     offer: {
       title: getRandomArrayElement(TITLES),
@@ -92,13 +100,13 @@ const createAd = (id) => {
   };
 };
 
-const similarAdsArray = (id) => {
+const similarAdsArray = () => {
   const similarAds = [];
-  for (let i = 1; i <= id; i++) {
+  for (let i = 1; i <= ADS_COUNT; i++) {
     similarAds.push(createAd(i));
   }
   return similarAds;
 };
 
 similarAdsArray(ADS_COUNT);
-export {similarAdsArray};
+export {similarAdsArray, HOUSING_TYPES};
