@@ -1,10 +1,4 @@
-const HOUSING_TYPES = {
-  flat : 'Квартира',
-  bungalow: 'Бунгало',
-  house: 'Дом',
-  palace: 'Дворец',
-  hotel: 'Отель',
-};
+import { HOUSING_TYPES } from './data.js';
 
 const adCardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
@@ -18,28 +12,29 @@ const renderAd = ({ad, author}) => {
   cardElement.querySelector('.popup__text--capacity').textContent = `${ad.offer.rooms} комнаты для ${ad.offer.guests} гостей`;
   cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${ad.offer.checkin}, выезд до ${ad.offer.checkout}`;
 
-  if (ad.offer.features !== undefined) {
-    const modifiers = ad.offer.features.map((feature) => `popup__feature--${feature}`);
+  if (ad.offer.features) {
+    const featureElement = ad.offer.features.map((feature) => `popup__feature--${feature}`);
     cardElement.querySelectorAll('.popup__feature').forEach((item) => {
-      if (!modifiers.includes(item.classList[1])) {
+      if (!featureElement.includes(item.classList[1])) {
         item.remove();
       }
     });
   }
 
-  if (ad.offer.description !== undefined) {
+  if (ad.offer.description) {
     cardElement.querySelector('.popup__description').textContent = ad.offer.description;
   }
-
-  if (ad.offer.photos !== undefined) {
-    const photos = cardElement.querySelector('.popup__photos');
-    const tagName = photos.querySelector('img');
-    const clonePhoto = tagName.cloneNode(true);
-    tagName.remove();
-    for (let i = 0; i <= ad.offer.photos.length - 1; i++) {
-      const newPhoto = clonePhoto.cloneNode(true);
-      newPhoto.src = ad.offer.photos[i];
-      photos.appendChild(newPhoto);
+  if (ad.offer.photos) {
+    const photoList = cardElement.querySelector('.popup__photos');
+    const photoElements = photoList.querySelector('.popup__photo');
+    photoElements.remove();
+    ad.offer.photos.forEach((photo) => {
+      const photoElement = photoElements.cloneNode(true);
+      photoElement.src = photo;
+      photoList.append(photoElement);
+    });
+    if (photoList.length === 0) {
+      photoList.classList.add('hidden');
     }
   }
   return cardElement;
